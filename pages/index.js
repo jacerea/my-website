@@ -1,8 +1,10 @@
 
 import Head from 'next/head';
 //import styled from 'styled-components';
-import { FaJava, FaPython, FaJs, FaReact } from 'react-icons/fa'; // Import relevant icons
-import { SiCplusplus, SiNextdotjs } from 'react-icons/si'; // Remove unnecessary icons (HTML, CSS, PostgreSQL)
+import { FaJava, FaPython, FaJs, FaReact } from 'react-icons/fa'; // Import relevant icons from coding section
+import { SiCplusplus, SiNextdotjs } from 'react-icons/si'; // Other icons for coding section
+import { FaLinkedin, FaGithub } from 'react-icons/fa'; // Github and LinkedIn icon
+import { MdOutlineDescription } from 'react-icons/md'; // For the resume icon
 
 export default function Home() {
   return ( // could do font as 'Bodoni MT, serif' but i liked other better
@@ -19,7 +21,7 @@ export default function Home() {
 
       <div style={{ position: 'absolute', top: '20px', right: '20px', fontSize:'1.5rem', zIndex: 1000 }}>
         <a href="#about-me" style={{ fontFamily: 'Calibri, sans-serif', fontStyle: 'italic', marginLeft: '10px', textDecoration: 'underline', color: 'white'}}>About Me</a>
-        <a href="#skills" style={{ fontFamily: 'Calibri, sans-serif', fontStyle: 'italic', marginLeft: '10px', textDecoration: 'underline', color: 'white' }}>Skills</a>
+        { /* removed skills section */}
         <a href="#projects" style={{ fontFamily: 'Calibri, sans-serif', fontStyle: 'italic', marginLeft: '10px', textDecoration: 'underline', color: 'white' }}>Projects</a>
         <a href="#coding-proficiencies" style={{ fontFamily: 'Calibri, sans-serif', fontStyle: 'italic', marginLeft: '10px', textDecoration: 'underline', color: 'white'}}>Coding Proficiencies</a>
       </div>
@@ -46,9 +48,9 @@ export default function Home() {
             />
           </div>
           
-          {/*this is the text on the right */}
+          {/*this is the text on the right changed text size */}
           <div style={{ flex: '1', maxWidth: '1000px', padding: '10px' }}>
-            <p style={{ fontSize: '1.5rem', lineHeight: '1.6'}}>
+            <p style={{ fontSize: '1.4rem', lineHeight: '1.6'}}>
               Hey, I'm Jace! I am currently a passionate sophomore at the University of North Carolina at Chapel Hill, where I'm pursuing an exciting journey toward a Master's in Computer Science 
               while majoring in Business. My love for technology and innovation fuels my curiosity as I dive deep into the world of coding, constantly seeking new ways to challenge 
               myself and expand my skills. Outside the classroom, I am an enthusiastic sports fan, a film enjoyer, and a lover of music, all of which inspire my creativity and 
@@ -166,10 +168,10 @@ export default function Home() {
           <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', alignItems: 'center' }}>
             {/*LinkedIn Button*/}
             <button
-              style={{ margin: '10px', padding: '15px 30px', fontSize: '18px', backgroundColor: '#3D52A0', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', textDecoration: 'underline'}}
+              style={{ margin: '10px', padding: '15px 30px', fontSize: '18px', backgroundColor: '#0077B5', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', textDecoration: 'underline', gap: '10px'}}
               onClick={() => window.open('https://www.linkedin.com/in/jace-rea04/', '_blank')}
             >
-              LinkedIn
+              <FaLinkedin size={24} /> LinkedIn
             </button>
 
             {/*Resume Button*/}
@@ -177,15 +179,15 @@ export default function Home() {
               style={{margin: '10px', padding: '15px 30px', fontSize: '18px', backgroundColor: '#3D52A0', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', textDecoration: 'underline'}}
               onClick={() => window.open('https://docs.google.com/document/d/1c32Yv7p4YWMZu3pbRXQfRwTaaz1m5_e7S4aSUMyuV9I/edit?tab=t.0','_blank')}
             >
-              View My Resume
+              <MdOutlineDescription size={24} /> View My Resume
             </button>
 
-            {/* GitHub School Link (??) */}
+            {/* GitHub School Link */}
             <button
-              style={{margin: '10px', padding: '15px 30px', fontSize: '18px', backgroundColor: '#3D52A0', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', textDecoration: 'underline'}}
+              style={{margin: '10px', padding: '15px 30px', fontSize: '18px', backgroundColor: '#333', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', textDecoration: 'underline'}}
               onClick={() => window.open('https://github.com/jacerea', '_blank')}
             >
-              GitHub
+              <FaGithub size={24} />GitHub
             </button>
           </div>
         </section>
