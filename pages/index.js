@@ -99,10 +99,44 @@ export default function Home() {
                        borderRadius: '5px', 
                        cursor: 'pointer',
                        textDecoration: 'underline' }}
-              onClick={() => window.open('https://github.com/jacerea/unc-sports-chatbot', '_blank')} // link in question
+              onClick={() => window.open('https://github.com/jacerea/unc-sport-chatbot', '_blank')} // link in question
             >
               UNC Sports Chatbot
             </button>
+
+            <button
+              style={{ 
+                margin: '10px', 
+                padding: '15px 30px', 
+                fontSize: '18px', 
+                backgroundColor: '#3D52A0', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '5px', 
+                cursor: 'pointer', 
+                textDecoration: 'underline' 
+              }}
+              onClick={() => window.open('https://github.com/jacerea/ancient-philosophy', '_blank')}
+            >
+              Ancient Philosophy
+            </button>
+
+            <button
+              style={{ 
+                margin: '10px', 
+                padding: '15px 30px', 
+                fontSize: '18px', 
+                backgroundColor: '#3D52A0', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '5px', 
+                cursor: 'pointer', 
+                textDecoration: 'underline' 
+              }}
+              onClick={() => window.open('https://github.com/jacerea/my-website', '_blank')}
+            >
+              Website
+            </button>    
           </div>
         </section>
         
@@ -162,7 +196,7 @@ export default function Home() {
           </div>
         </section>
         
-        {/* maybe add the logos for each of these? */}
+        {/* Added logo for each of these looks great */}
         <section style = {{ textAlign: 'center', marginBottom: '100px'}}>
           <h2 style = {{ textDecoration: 'underline', fontSize: '2.5rem' }}>Connect With Me!</h2>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', alignItems: 'center' }}>
