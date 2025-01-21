@@ -131,8 +131,8 @@ export default function Home() {
                 textAlign: 'center' }}
               onClick={() => window.open('https://github.com/jacerea/my-website', '_blank')}
             >
-              Website
-            </button>    
+              Personal Website
+            </button>
           </div>
         </section>
         
