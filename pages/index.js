@@ -35,8 +35,7 @@ export default function Home() {
           Sophomore at UNC Chapel Hill | Aspiring Computer Scientist & Business Major</p>
       </header>
 
-      <main style={{ padding: '20px', 
-                     textAlign: 'center' }}>
+      <main style={{ padding: '20px', textAlign: 'center' }}>
       <section id = "about-me" style={{ marginBottom: '200px' }}>
         <h2 style={{ fontSize: '3.5rem', textDecoration: 'underline'}}>About Me</h2>
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
@@ -61,44 +60,39 @@ export default function Home() {
         </div>
       </section>
 
-        {/* I want to add somethingj to the skills section, Unsure as to what, but it looks boring right now. Jus taking it out for now*/}
-          { /*<section id = "skills" style={{ marginBottom: '100px' }}>
-            <h2 style={{ fontSize: '3.5rem' }}>Skills</h2>
-            <p style={{ fontSize: '1.5rem', 
-                        lineHeight: '1.6'}}>
-              <strong>Hard Skills:</strong> Programming, Data Analysis, Data Mining, Data Visualization, Financial Modeling, Google Analytics
-            </p>
-          </section> */}
-        
-         
         <section id = "projects" style={{ marginBottom: '100px' }}>
           <h2 style={{ fontSize: '3.5rem' }}>Projects</h2> 
-          <div //need to fix the links and make them boxes possibly
-              > 
+          <div> 
             <button
-              style={{ margin: '10px', 
-                       padding: '15px 30px', 
-                       fontSize: '18px', 
-                       backgroundColor: '#3D52A0', 
-                       color: 'white', 
-                       border: 'none', 
-                       borderRadius: '5px', 
-                       cursor: 'pointer',
-                       textDecoration: 'underline' }}
-              onClick={() => window.open('https://github.com/jacerea/tetris-dog-game', '_blank')} // link in question
+              style={{ 
+                margin: '10px', 
+                padding: '15px 30px', 
+                fontSize: '18px', 
+                backgroundColor: '#3D52A0', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '5px', 
+                cursor: 'pointer',
+                textDecoration: 'underline',
+                width: '200px',
+                textAlign: 'center' }}
+              onClick={() => window.open('https://github.com/jacerea/tetris-dog-game', '_blank')} 
             >
               Tetris-Style Dog Game
             </button>
             <button
-              style={{ margin: '10px', 
-                       padding: '15px 30px', 
-                       fontSize: '18px', 
-                       backgroundColor: '#3D52A0', 
-                       color: 'white', 
-                       border: 'none', 
-                       borderRadius: '5px', 
-                       cursor: 'pointer',
-                       textDecoration: 'underline' }}
+              style={{ 
+                margin: '10px', 
+                padding: '15px 30px', 
+                fontSize: '18px', 
+                backgroundColor: '#3D52A0', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '5px', 
+                cursor: 'pointer',
+                textDecoration: 'underline', 
+                width: '200px',
+                textAlign: 'center' }}
               onClick={() => window.open('https://github.com/jacerea/unc-sport-chatbot', '_blank')} // link in question
             >
               UNC Sports Chatbot
@@ -114,8 +108,9 @@ export default function Home() {
                 border: 'none', 
                 borderRadius: '5px', 
                 cursor: 'pointer', 
-                textDecoration: 'underline' 
-              }}
+                textDecoration: 'underline',
+                width: '200px',
+                textAlign: 'center' }}
               onClick={() => window.open('https://github.com/jacerea/ancient-philosophy', '_blank')}
             >
               Ancient Philosophy
@@ -131,8 +126,9 @@ export default function Home() {
                 border: 'none', 
                 borderRadius: '5px', 
                 cursor: 'pointer', 
-                textDecoration: 'underline' 
-              }}
+                textDecoration: 'underline',
+                width: '200px',
+                textAlign: 'center' }}
               onClick={() => window.open('https://github.com/jacerea/my-website', '_blank')}
             >
               Website
@@ -198,7 +194,7 @@ export default function Home() {
         
         {/* Added logo for each of these looks great */}
         <section style = {{ textAlign: 'center', marginBottom: '100px'}}>
-          <h2 style = {{ textDecoration: 'underline', fontSize: '2.5rem' }}>Connect With Me!</h2>
+          <h2 style = {{ fontSize: '2.5rem' }}>Connect With Me!</h2>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', alignItems: 'center' }}>
             {/*LinkedIn Button*/}
             <button
@@ -228,7 +224,7 @@ export default function Home() {
 
 
       <footer style={{ padding: '10px', textAlign: 'center', backgroundColor: '#8697C4', color: 'white', textDecoration: 'underline' }}>
-        <p>&copy; 2024 Jace Rea</p>
+        <p>&copy; 2025 Jace Rea</p>
       </footer>
      </main>
     </div>
