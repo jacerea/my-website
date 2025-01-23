@@ -17,6 +17,7 @@ export default function Home() {
                   padding: 0 }}>
       <Head>
         <title>Jace Rea | Portfolio</title>
+        <link rel="icon" type="image/jpeg" href="/ReactIcon.jpg" />
       </Head>
 
       <div style={{ position: 'absolute', top: '20px', right: '20px', fontSize:'1.5rem', zIndex: 1000 }}>
