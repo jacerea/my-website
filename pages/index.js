@@ -1,4 +1,11 @@
-
+/*
+  List of things I would like to add:
+    - Animations such as
+      - Hover Animation
+      - Scroll Animation/effect
+    - Reformat the "About Me" Header
+    - IF you think of anything else put it in here
+*/
 import Head from 'next/head';
 //import styled from 'styled-components';
 import { FaJava, FaPython, FaJs, FaReact } from 'react-icons/fa'; // Import relevant icons from coding section
