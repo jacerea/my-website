@@ -91,7 +91,7 @@ export default function Home() {
               overflow: 'hidden',
               textDecoration: 'none',
               cursor: 'pointer',
-              flex: '1 1 220px',
+              flex: '0 0 220px',
               maxWidth: '100%',
               transition: 'transform 0.3s ease'
             }}
@@ -142,7 +142,7 @@ export default function Home() {
               overflow: 'hidden',
               textDecoration: 'none',
               cursor: 'pointer',
-              flex: '1 1 220px',
+              flex: '0 0 220px',
               maxWidth: '100%',
               transition: 'transform 0.3s ease'
             }}
@@ -193,7 +193,7 @@ export default function Home() {
               overflow: 'hidden',
               textDecoration: 'none',
               cursor: 'pointer',
-              flex: '1 1 220px',
+              flex: '0 0 220px',
               maxWidth: '100%',
               transition: 'transform 0.3s ease'
             }}
