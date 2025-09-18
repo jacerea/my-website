@@ -67,9 +67,54 @@ export default function Home() {
           </div>
         </div>
       </section>
+      
+
+      <section id="consulting-portfolio" style={{ marginBottom: '100px' }}>
+        <h2 style={{ fontSize: '3.5rem' }}>Consulting Portfolio</h2> 
+        <div>
+          <button
+            style={{ 
+              margin: '10px', 
+              padding: '15px 30px', 
+              fontSize: '18px', 
+              backgroundColor: '#3D52A0', 
+              color: 'white', 
+              border: 'none', 
+              borderRadius: '5px', 
+              cursor: 'pointer',
+              textDecoration: 'underline',
+              width: '200px',
+              textAlign: 'center'
+            }}
+            onClick={() => window.open('https://link-to-your-consulting-project-1.com', '_blank')} 
+          >
+            Consulting Project 1
+          </button>
+
+          <button
+            style={{ 
+              margin: '10px', 
+              padding: '15px 30px', 
+              fontSize: '18px', 
+              backgroundColor: '#3D52A0', 
+              color: 'white', 
+              border: 'none', 
+              borderRadius: '5px', 
+              cursor: 'pointer',
+              textDecoration: 'underline', 
+              width: '200px',
+              textAlign: 'center'
+            }}
+            onClick={() => window.open('https://link-to-your-consulting-project-2.com', '_blank')} 
+          >
+            Consulting Project 2
+          </button>
+        </div>
+      </section>
+
 
         <section id = "projects" style={{ marginBottom: '100px' }}>
-          <h2 style={{ fontSize: '3.5rem' }}>Projects</h2> 
+          <h2 style={{ fontSize: '3.5rem' }}>Coding Projects</h2> 
           <div> 
             <button
               style={{ 
