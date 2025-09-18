@@ -71,63 +71,50 @@ export default function Home() {
 
       <section id="consulting-portfolio" style={{ marginBottom: '100px' }}>
         <h2 style={{ fontSize: '3.5rem' }}>Consulting Portfolio</h2> 
-        <div>
-          <button
-            style={{ 
-              margin: '10px', 
-              padding: '15px 30px', 
-              fontSize: '18px', 
-              backgroundColor: '#3D52A0', 
-              color: 'white', 
-              border: 'none', 
-              borderRadius: '5px', 
-              cursor: 'pointer',
-              textDecoration: 'underline',
-              width: '200px',
-              textAlign: 'center'
-            }}
-            onClick={() => window.open('https://www.canva.com/design/DAGuEZhHSpQ/Fm5NaJNWd1cQgm_oJJc0FQ/edit?utm_content=DAGuEZhHSpQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton', '_blank')} 
-          >
-            Salford City FC
-          </button>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
+          
+          {/* Project 1 */}
+          <a href="https://www.canva.com/design/DAGuEZhHSpQ/Fm5NaJNWd1cQgm_oJJc0FQ/edit?utm_content=DAGuEZhHSpQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" 
+            target="_blank" rel="noopener noreferrer"
+            style={{ textDecoration: 'none', width: '300px', border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden' }}>
+            <iframe
+              src="https://www.canva.com/design/DAGuEZhHSpQ/Fm5NaJNWd1cQgm_oJJc0FQ/view?utm_content=DAGuEZhHSpQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
+              title="Salford City FC"
+              style={{ width: '100%', height: '200px', border: 'none' }}
+            ></iframe>
+            <div style={{ padding: '10px', backgroundColor: '#3D52A0', color: 'white', textAlign: 'center' }}>
+              Salford City FC
+            </div>
+          </a>
 
-          <button
-            style={{ 
-              margin: '10px', 
-              padding: '15px 30px', 
-              fontSize: '18px', 
-              backgroundColor: '#3D52A0', 
-              color: 'white', 
-              border: 'none', 
-              borderRadius: '5px', 
-              cursor: 'pointer',
-              textDecoration: 'underline', 
-              width: '200px',
-              textAlign: 'center'
-            }}
-            onClick={() => window.open('https://www.canva.com/design/DAGujkGeUlQ/yd62Drb3mQXz7jHOojiVUQ/edit?utm_content=DAGujkGeUlQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton', '_blank')} 
-          >
-            Manchester City Woman's FC
-          </button>
+          {/* Project 2 */}
+          <a href="https://www.canva.com/design/DAGujkGeUlQ/yd62Drb3mQXz7jHOojiVUQ/edit?utm_content=DAGujkGeUlQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" 
+            target="_blank" rel="noopener noreferrer"
+            style={{ textDecoration: 'none', width: '300px', border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden' }}>
+            <iframe
+              src="https://www.canva.com/design/DAGujkGeUlQ/yd62Drb3mQXz7jHOojiVUQ/view?utm_content=DAGujkGeUlQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
+              title="Manchester City Woman's FC"
+              style={{ width: '100%', height: '200px', border: 'none' }}
+            ></iframe>
+            <div style={{ padding: '10px', backgroundColor: '#3D52A0', color: 'white', textAlign: 'center' }}>
+              Manchester City Woman's FC
+            </div>
+          </a>
 
-          <button
-            style={{ 
-              margin: '10px', 
-              padding: '15px 30px', 
-              fontSize: '18px', 
-              backgroundColor: '#3D52A0', 
-              color: 'white', 
-              border: 'none', 
-              borderRadius: '5px', 
-              cursor: 'pointer',
-              textDecoration: 'underline', 
-              width: '200px',
-              textAlign: 'center'
-            }}
-            onClick={() => window.open('https://www.canva.com/design/DAGtc3-okQQ/sKtU_lXynAYtIrVFmiF-Bw/edit?utm_content=DAGtc3-okQQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton', '_blank')} 
-          >
-            Plymouth Argyles FC
-          </button>
+          {/* Project 3 */}
+          <a href="https://www.canva.com/design/DAGtc3-okQQ/sKtU_lXynAYtIrVFmiF-Bw/edit?utm_content=DAGtc3-okQQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" 
+            target="_blank" rel="noopener noreferrer"
+            style={{ textDecoration: 'none', width: '300px', border: '1px solid #ccc', borderRadius: '8px', overflow: 'hidden' }}>
+            <iframe
+              src="https://www.canva.com/design/DAGtc3-okQQ/sKtU_lXynAYtIrVFmiF-Bw/view?utm_content=DAGtc3-okQQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
+              title="Plymouth Argyles FC"
+              style={{ width: '100%', height: '200px', border: 'none' }}
+            ></iframe>
+            <div style={{ padding: '10px', backgroundColor: '#3D52A0', color: 'white', textAlign: 'center' }}>
+              Plymouth Argyles FC
+            </div>
+          </a>
+
         </div>
       </section>
 
