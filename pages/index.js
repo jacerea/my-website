@@ -40,7 +40,7 @@ export default function Home() {
              style={{ position: 'absolute', top: '20px', left: '20px', maxWidth: '180px' }} />
         <h1>Jace Rea</h1>
         <p style = {{ fontStyle: 'italic' }}>
-          Junior - UNC Chapel Hill | Computer Science and Business Administration major and Entrepreneur Minor</p>
+          Junior at UNC Chapel Hill | Computer Science and Business Administration Major and Entrepreneur Minor</p>
       </header>
 
       <main style={{ padding: '20px', textAlign: 'center' }}>
@@ -50,7 +50,7 @@ export default function Home() {
           {/*this is me and my imagine on the left */}
           <div style={{ flex: '0 0 30%' }}>
             <img
-              src="/New-Jace-Rea-Photo.png"  // W public photo bro thank god for the public file. Need a more professional photo tho.
+              src="/New-Jace-Rea_Photo.png"  // W public photo bro thank god for the public file. Need a more professional photo tho.
               alt="Jace Rea"
             />
           </div>
@@ -86,9 +86,9 @@ export default function Home() {
               width: '200px',
               textAlign: 'center'
             }}
-            onClick={() => window.open('https://link-to-your-consulting-project-1.com', '_blank')} 
+            onClick={() => window.open('https://www.canva.com/design/DAGuEZhHSpQ/Fm5NaJNWd1cQgm_oJJc0FQ/edit?utm_content=DAGuEZhHSpQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton', '_blank')} 
           >
-            Consulting Project 1
+            Salford City FC
           </button>
 
           <button
@@ -105,9 +105,28 @@ export default function Home() {
               width: '200px',
               textAlign: 'center'
             }}
-            onClick={() => window.open('https://link-to-your-consulting-project-2.com', '_blank')} 
+            onClick={() => window.open('https://www.canva.com/design/DAGujkGeUlQ/yd62Drb3mQXz7jHOojiVUQ/edit?utm_content=DAGujkGeUlQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton', '_blank')} 
           >
-            Consulting Project 2
+            Manchester City Woman's FC
+          </button>
+
+          <button
+            style={{ 
+              margin: '10px', 
+              padding: '15px 30px', 
+              fontSize: '18px', 
+              backgroundColor: '#3D52A0', 
+              color: 'white', 
+              border: 'none', 
+              borderRadius: '5px', 
+              cursor: 'pointer',
+              textDecoration: 'underline', 
+              width: '200px',
+              textAlign: 'center'
+            }}
+            onClick={() => window.open('https://www.canva.com/design/DAGtc3-okQQ/sKtU_lXynAYtIrVFmiF-Bw/edit?utm_content=DAGtc3-okQQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton', '_blank')} 
+          >
+            Plymouth Argyles FC
           </button>
         </div>
       </section>
@@ -260,7 +279,7 @@ export default function Home() {
             {/*Resume Button*/}
             <button
               style={{margin: '10px', padding: '15px 30px', fontSize: '18px', backgroundColor: '#3D52A0', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', textDecoration: 'underline'}}
-              onClick={() => window.open('https://docs.google.com/document/d/1c32Yv7p4YWMZu3pbRXQfRwTaaz1m5_e7S4aSUMyuV9I/edit?tab=t.0','_blank')}
+              onClick={() => window.open('https://docs.google.com/document/d/1DaaZMfiJVdWixJzwECqEK-dgVw8XZiBF3Zh8F3iGNoc/edit?usp=sharing','_blank')}
             >
               <MdOutlineDescription size={24} /> View My Resume
             </button>
