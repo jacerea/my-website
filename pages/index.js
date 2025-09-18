@@ -40,7 +40,7 @@ export default function Home() {
              style={{ position: 'absolute', top: '20px', left: '20px', maxWidth: '180px' }} />
         <h1>Jace Rea</h1>
         <p style = {{ fontStyle: 'italic' }}>
-          Sophomore at UNC Chapel Hill | Aspiring Computer Scientist & Business Major</p>
+          Junior - UNC Chapel Hill | Computer Science and Business Administration major and Entrepreneur Minor</p>
       </header>
 
       <main style={{ padding: '20px', textAlign: 'center' }}>
@@ -50,7 +50,7 @@ export default function Home() {
           {/*this is me and my imagine on the left */}
           <div style={{ flex: '0 0 30%' }}>
             <img
-              src="/Jace-Rea-Photo.jpg"  // W public photo bro thank god for the public file. Need a more professional photo tho.
+              src="/New-Jace-Rea-Photo.png"  // W public photo bro thank god for the public file. Need a more professional photo tho.
               alt="Jace Rea"
             />
           </div>
@@ -61,7 +61,7 @@ export default function Home() {
               Hey, I'm Jace! I am currently a junior at the University of North Carolina at Chapel Hill, where I'm pursuing an exciting journey toward a Master's in Computer Science 
               while majoring in Business. My love for technology and innovation fuels my curiosity as I dive deep into the world of coding and consulting, constantly seeking new ways to challenge 
               myself and expand my skills. Outside the classroom, I am an enthusiastic sports fan, a film enjoyer, and a lover of music, all of which inspire my creativity and 
-              drive. Whether it’s through coding a new project, solving complex problems with modern busines solutions, or jamming out to my favorite tunes, I am always looking 
+              drive. Whether it’s through coding a new project, solving complex problems with modern business solutions, or jamming out to my favorite tunes, I am always looking 
               for ways to blend my diverse interests into something meaningful and impactful.
             </p>
           </div>
