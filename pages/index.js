@@ -85,15 +85,18 @@ export default function Home() {
             rel="noopener noreferrer"
             style={{
               display: 'block',
-              width: '300px',
+              width: '220px', // smaller width
               border: '1px solid #ccc',
               borderRadius: '8px',
               overflow: 'hidden',
               textDecoration: 'none',
               cursor: 'pointer',
-              flex: '1 1 300px', // ensures responsiveness
-              maxWidth: '100%'
+              flex: '1 1 220px',
+              maxWidth: '100%',
+              transition: 'transform 0.3s ease'
             }}
+            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
           >
             <div style={{
               width: '100%',
@@ -102,7 +105,7 @@ export default function Home() {
               overflow: 'hidden'
             }}>
               <img 
-                src="/SalfordCity.png" //here
+                src="/SalfordCity.png" 
                 alt="Salford City FC"
                 style={{
                   position: 'absolute',
@@ -110,16 +113,17 @@ export default function Home() {
                   left: 0,
                   width: '100%',
                   height: '100%',
-                  objectFit: 'cover' // crops to fill container nicely
+                  objectFit: 'cover'
                 }}
               />
             </div>
             <div style={{ 
-              padding: '10px', 
+              padding: '8px', // smaller padding
               backgroundColor: '#3D52A0', 
               color: 'white', 
               textAlign: 'center',
-              fontWeight: 'bold' 
+              fontWeight: 'bold',
+              fontSize: '16px' // slightly smaller text
             }}>
               Salford City FC
             </div>
@@ -132,15 +136,18 @@ export default function Home() {
             rel="noopener noreferrer"
             style={{
               display: 'block',
-              width: '300px',
+              width: '220px',
               border: '1px solid #ccc',
               borderRadius: '8px',
               overflow: 'hidden',
               textDecoration: 'none',
               cursor: 'pointer',
-              flex: '1 1 300px',
-              maxWidth: '100%'
+              flex: '1 1 220px',
+              maxWidth: '100%',
+              transition: 'transform 0.3s ease'
             }}
+            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
           >
             <div style={{
               width: '100%',
@@ -149,7 +156,7 @@ export default function Home() {
               overflow: 'hidden'
             }}>
               <img 
-                src="/mancitywomaspicture.png" //here
+                src="/mancitywomanspicture.png" 
                 alt="Manchester City Woman's FC"
                 style={{
                   position: 'absolute',
@@ -162,11 +169,12 @@ export default function Home() {
               />
             </div>
             <div style={{ 
-              padding: '10px', 
+              padding: '8px', 
               backgroundColor: '#3D52A0', 
               color: 'white', 
               textAlign: 'center',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize: '16px'
             }}>
               Manchester City Woman's FC
             </div>
@@ -179,15 +187,18 @@ export default function Home() {
             rel="noopener noreferrer"
             style={{
               display: 'block',
-              width: '300px',
+              width: '220px',
               border: '1px solid #ccc',
               borderRadius: '8px',
               overflow: 'hidden',
               textDecoration: 'none',
               cursor: 'pointer',
-              flex: '1 1 300px',
-              maxWidth: '100%'
+              flex: '1 1 220px',
+              maxWidth: '100%',
+              transition: 'transform 0.3s ease'
             }}
+            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
           >
             <div style={{
               width: '100%',
@@ -196,7 +207,7 @@ export default function Home() {
               overflow: 'hidden'
             }}>
               <img 
-                src="/PlymouthArgyleFinance.png" //here
+                src="/PlymouthArgyleFinance.png" 
                 alt="Plymouth Argyles FC"
                 style={{
                   position: 'absolute',
@@ -209,11 +220,12 @@ export default function Home() {
               />
             </div>
             <div style={{ 
-              padding: '10px', 
+              padding: '8px', 
               backgroundColor: '#3D52A0', 
               color: 'white', 
               textAlign: 'center',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              fontSize: '16px'
             }}>
               Plymouth Argyles FC
             </div>
@@ -221,6 +233,7 @@ export default function Home() {
 
         </div>
       </section>
+
 
 
 
