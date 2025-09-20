@@ -45,35 +45,30 @@ export default function Home() {
       </header>
 
       {/* Need to fix this so the about me is above the paragraph but its breaking my code*/}
-      <main style={{ padding: '20px' }}>
-        <section id="about-me" style={{ marginBottom: '200px' }}>
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
-            
-            {/* Image column */}
-            <div style={{ flex: '0 0 30%' }}>
-              <img
-                src="/New-Jace-Rea_Photo.png"
-                alt="Jace Rea"
-                style={{ maxWidth: '100%', borderRadius: '8px' }}
-              />
-            </div>
-            
-            {/* Text column */}
-            <div style={{ flex: '1', maxWidth: '1000px', padding: '10px' }}>
-              <h2 style={{ fontSize: '3.5rem', textDecoration: 'underline', marginBottom: '20px' }}>
-                About Me
-              </h2>
-              <p style={{ fontSize: '1.4rem', lineHeight: '1.6' }}>
-                Hey, I'm Jace! I am currently a junior at the University of North Carolina at Chapel Hill, where I'm pursuing an exciting journey toward a Master's in Computer Science 
-                while majoring in Business. My love for technology and innovation fuels my curiosity as I dive deep into the world of coding and consulting, constantly seeking new ways to challenge 
-                myself and expand my skills. Outside the classroom, I am an enthusiastic sports fan, a film enjoyer, and a lover of music, all of which inspire my creativity and 
-                drive. Whether it’s through coding a new project, solving complex problems with modern business solutions, or jamming out to my favorite tunes, I am always looking 
-                for ways to blend my diverse interests into something meaningful and impactful.
-              </p>
-            </div>
+      <main style={{ padding: '20px', textAlign: 'center' }}>
+      <section id = "about-me" style={{ marginBottom: '200px' }}>
+        <h2 style={{ fontSize: '3.5rem', textDecoration: 'underline'}}>About Me</h2>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          {/*this is me and my image on the left */}
+          <div style={{ flex: '0 0 30%' }}>
+            <img
+              src="/New-Jace-Rea_Photo.png"  // W public photo bro thank god for the public file. Need a more professional photo tho.
+              alt="Jace Rea"
+            />
           </div>
-        </section>
-      
+          
+          {/*this is the text on the right changed text size */}
+          <div style={{ flex: '1', maxWidth: '1000px', padding: '10px' }}>
+            <p style={{ fontSize: '1.4rem', lineHeight: '1.6'}}>
+              Hey, I'm Jace! I am currently a junior at the University of North Carolina at Chapel Hill, where I'm pursuing an exciting journey toward a Master's in Computer Science 
+              while majoring in Business. My love for technology and innovation fuels my curiosity as I dive deep into the world of coding and consulting, constantly seeking new ways to challenge 
+              myself and expand my skills. Outside the classroom, I am an enthusiastic sports fan, a film enjoyer, and a lover of music, all of which inspire my creativity and 
+              drive. Whether it’s through coding a new project, solving complex problems with modern business solutions, or jamming out to my favorite tunes, I am always looking 
+              for ways to blend my diverse interests into something meaningful and impactful.
+            </p>
+          </div>
+        </div>
+      </section>
       
 
       <section id="consulting-portfolio" style={{ marginBottom: '100px' }}>
