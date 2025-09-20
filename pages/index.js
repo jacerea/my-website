@@ -28,14 +28,14 @@ export default function Home() {
       </Head>
 
       <div style={{ position: 'absolute', top: '20px', right: '20px', fontSize:'1.5rem', zIndex: 1000 }}>
-        <a href="#about-me" style={{ fontFamily: 'Calibri, sans-serif', fontStyle: 'italic', marginLeft: '10px', textDecoration: 'underline', color: 'white'}}>About Me</a>
+        <a href="#about-me" style={{ fontFamily: 'Segoe UI, Roboto, Helvetica Neue, sans-serif', fontStyle: 'italic', marginLeft: '10px', textDecoration: 'underline', color: 'white'}}>About Me</a>
         { /* removed skills section */}
-        <a href="#projects" style={{ fontFamily: 'Calibri, sans-serif', fontStyle: 'italic', marginLeft: '10px', textDecoration: 'underline', color: 'white' }}>Projects</a>
-        <a href="#coding-proficiencies" style={{ fontFamily: 'Calibri, sans-serif', fontStyle: 'italic', marginLeft: '10px', textDecoration: 'underline', color: 'white'}}>Coding Proficiencies</a>
+        <a href="#projects" style={{ fontFamily: 'Segoe UI, Roboto, Helvetica Neue, sans-serif', fontStyle: 'italic', marginLeft: '10px', textDecoration: 'underline', color: 'white' }}>Projects</a>
+        <a href="#coding-proficiencies" style={{ fontFamily: 'Segoe UI, Roboto, Helvetica Neue, sans-serif', fontStyle: 'italic', marginLeft: '10px', textDecoration: 'underline', color: 'white'}}>Coding Proficiencies</a>
       </div>
 
       
-      <header style={{ fontFamily: 'Calibri, sans-serif', padding: '20px', fontSize: '1.4rem', textAlign: 'center', backgroundColor: '#0a2e5c' , color: 'white' }}>
+      <header style={{ fontFamily: 'Segoe UI, Roboto, Helvetica Neue, sans-serif', padding: '20px', fontSize: '1.4rem', textAlign: 'center', backgroundColor: '#0a2e5c' , color: 'white' }}>
         <img src="/NewLogo.png" 
              alt="Jace Rea's Logo" 
              style={{ position: 'absolute', top: '20px', left: '20px', maxWidth: '180px' }} />
