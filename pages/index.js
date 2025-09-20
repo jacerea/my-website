@@ -14,11 +14,11 @@ import { FaLinkedin, FaGithub } from 'react-icons/fa'; // Github and LinkedIn ic
 import { MdOutlineDescription } from 'react-icons/md'; // For the resume icon
 
 export default function Home() {
-  return ( // could do font as 'Bodoni MT, serif' but i liked other better
-    <div style={{ fontFamily: 'Calibri, sans-serif', 
+  return ( // could do font as 'Bodoni MT, serif' but i liked other better, Calibri, sans-serif
+    <div style={{ fontFamily: 'Segoe UI, Roboto, Helvetica Neue, sans-serif', 
                   fontSize: '1.2rem',
-                  backgroundColor: '#EDE8F5',
-                  color: '#333', 
+                  backgroundColor: '#f5f7fa', //EDE8F5, header: 8697C4
+                  color: '#1c1c1c', //#333
                   minHeight: '100vh', 
                   margin: 0, 
                   padding: 0 }}>
@@ -34,7 +34,8 @@ export default function Home() {
         <a href="#coding-proficiencies" style={{ fontFamily: 'Calibri, sans-serif', fontStyle: 'italic', marginLeft: '10px', textDecoration: 'underline', color: 'white'}}>Coding Proficiencies</a>
       </div>
 
-      <header style={{ fontFamily: 'Calibri, sans-serif', padding: '20px', fontSize: '1.4rem', textAlign: 'center', backgroundColor: '#8697C4', color: 'white' }}>
+      
+      <header style={{ fontFamily: 'Calibri, sans-serif', padding: '20px', fontSize: '1.4rem', textAlign: 'center', backgroundColor: '#0a2e5c' , color: 'white' }}>
         <img src="/Logo.jpg" 
              alt="Jace Rea's Logo" 
              style={{ position: 'absolute', top: '20px', left: '20px', maxWidth: '180px' }} />
@@ -43,11 +44,12 @@ export default function Home() {
           Junior at UNC Chapel Hill | Computer Science and Business Administration Major and Entrepreneur Minor</p>
       </header>
 
+      {/* Need to fix this so the about me is above the paragraph but its breaking my code*/}
       <main style={{ padding: '20px', textAlign: 'center' }}>
       <section id = "about-me" style={{ marginBottom: '200px' }}>
         <h2 style={{ fontSize: '3.5rem', textDecoration: 'underline'}}>About Me</h2>
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          {/*this is me and my imagine on the left */}
+          {/*this is me and my image on the left */}
           <div style={{ flex: '0 0 30%' }}>
             <img
               src="/New-Jace-Rea_Photo.png"  // W public photo bro thank god for the public file. Need a more professional photo tho.
@@ -230,89 +232,225 @@ export default function Home() {
               Plymouth Argyles FC
             </div>
           </a>
-
         </div>
       </section>
+        
+        <section id="projects" style={{ marginBottom: '100px' }}>
+          <h2 style={{ fontSize: '3.5rem', textAlign: 'center', marginBottom: '40px' }}>Coding Projects</h2>
+          <div style={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            gap: '20px', 
+            justifyContent: 'center'
+          }}>
 
-
-
-
-
-        <section id = "projects" style={{ marginBottom: '100px' }}>
-          <h2 style={{ fontSize: '3.5rem' }}>Coding Projects</h2> 
-          <div> 
-            <button
-              style={{ 
-                margin: '10px', 
-                padding: '15px 30px', 
-                fontSize: '18px', 
-                backgroundColor: '#3D52A0', 
-                color: 'white', 
-                border: 'none', 
-                borderRadius: '5px', 
+            {/* Project 1 */}
+            <a 
+              href="https://github.com/jacerea/tetris-dog-game"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'block',
+                width: '220px',
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                textDecoration: 'none',
                 cursor: 'pointer',
-                textDecoration: 'underline',
-                width: '200px',
-                textAlign: 'center' }}
-              onClick={() => window.open('https://github.com/jacerea/tetris-dog-game', '_blank')} 
+                flex: '0 0 220px',
+                maxWidth: '100%',
+                transition: 'transform 0.3s ease'
+              }}
+              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
             >
-              Tetris-Style Dog Game
-            </button>
-            <button
-              style={{ 
-                margin: '10px', 
-                padding: '15px 30px', 
-                fontSize: '18px', 
+              <div style={{
+                width: '100%',
+                paddingTop: '66.66%',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <img 
+                  src="/tetris-dog-thumbnail.png"
+                  alt="Tetris-Style Dog Game"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
+              </div>
+              <div style={{ 
+                padding: '8px',
                 backgroundColor: '#3D52A0', 
                 color: 'white', 
-                border: 'none', 
-                borderRadius: '5px', 
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: '16px'
+              }}>
+                Tetris-Style Dog Game
+              </div>
+            </a>
+
+            {/* Project 2 */}
+            <a 
+              href="https://github.com/jacerea/unc-sport-chatbot"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'block',
+                width: '220px',
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                textDecoration: 'none',
                 cursor: 'pointer',
-                textDecoration: 'underline', 
-                width: '200px',
-                textAlign: 'center' }}
-              onClick={() => window.open('https://github.com/jacerea/unc-sport-chatbot', '_blank')} // link in question
+                flex: '0 0 220px',
+                maxWidth: '100%',
+                transition: 'transform 0.3s ease'
+              }}
+              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
             >
-              UNC Sports Chatbot
-            </button>
-
-            <button
-              style={{ 
-                margin: '10px', 
-                padding: '15px 30px', 
-                fontSize: '18px', 
+              <div style={{
+                width: '100%',
+                paddingTop: '66.66%',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <img 
+                  src="/unc-chatbot-thumbnail.png"
+                  alt="UNC Sports Chatbot"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
+              </div>
+              <div style={{ 
+                padding: '8px',
                 backgroundColor: '#3D52A0', 
                 color: 'white', 
-                border: 'none', 
-                borderRadius: '5px', 
-                cursor: 'pointer', 
-                textDecoration: 'underline',
-                width: '200px',
-                textAlign: 'center' }}
-              onClick={() => window.open('https://github.com/jacerea/ancient-philosophy', '_blank')}
-            >
-              Ancient Philosophy
-            </button>
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: '16px'
+              }}>
+                UNC Sports Chatbot
+              </div>
+            </a>
 
-            <button
-              style={{ 
-                margin: '10px', 
-                padding: '15px 30px', 
-                fontSize: '18px', 
+            {/* Project 3 */}
+            <a 
+              href="https://github.com/jacerea/ancient-philosophy"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'block',
+                width: '220px',
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                textDecoration: 'none',
+                cursor: 'pointer',
+                flex: '0 0 220px',
+                maxWidth: '100%',
+                transition: 'transform 0.3s ease'
+              }}
+              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              <div style={{
+                width: '100%',
+                paddingTop: '66.66%',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <img 
+                  src="/ancient-philosophy-thumbnail.png"
+                  alt="Ancient Philosophy"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
+              </div>
+              <div style={{ 
+                padding: '8px',
                 backgroundColor: '#3D52A0', 
                 color: 'white', 
-                border: 'none', 
-                borderRadius: '5px', 
-                cursor: 'pointer', 
-                textDecoration: 'underline',
-                width: '200px',
-                textAlign: 'center' }}
-              onClick={() => window.open('https://github.com/jacerea/my-website', '_blank')}
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: '16px'
+              }}>
+                Ancient Philosophy
+              </div>
+            </a>
+
+            {/* Project 4 */}
+            <a 
+              href="https://github.com/jacerea/my-website"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'block',
+                width: '220px',
+                border: '1px solid #ccc',
+                borderRadius: '8px',
+                overflow: 'hidden',
+                textDecoration: 'none',
+                cursor: 'pointer',
+                flex: '0 0 220px',
+                maxWidth: '100%',
+                transition: 'transform 0.3s ease'
+              }}
+              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
             >
-              Personal Website
-            </button>
+              <div style={{
+                width: '100%',
+                paddingTop: '66.66%',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <img 
+                  src="/personal-website-thumbnail.png"
+                  alt="Personal Website"
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover'
+                  }}
+                />
+              </div>
+              <div style={{ 
+                padding: '8px',
+                backgroundColor: '#3D52A0', 
+                color: 'white', 
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontSize: '16px'
+              }}>
+                Personal Website
+              </div>
+            </a>
+
           </div>
         </section>
+
         
         <section id="coding-proficiencies" style={{ marginBottom: '100px' }}> 
           <h2 style={{ fontSize: '3.5rem'}}>Coding Proficiencies</h2> 
