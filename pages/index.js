@@ -1,9 +1,9 @@
 /*
   List of things I would like to add:
     - Animations such as
-      - Hover Animation
-      - Scroll Animation/effect
-    - Reformat the "About Me" Header
+      - Hover Animation DONE
+      - Scroll Animation/effect 
+    - Reformat the "About Me" Header DONE
     - IF you think of anything else put it in here
 */
 import Head from 'next/head';
@@ -52,7 +52,7 @@ export default function Home() {
             Jace Rea
           </h1>
           <p style={{ margin: '4px 0 0', fontSize: '0.88rem', fontStyle: 'italic', opacity: 0.8 }}>
-            Junior at UNC Chapel Hill | Computer Science and Business Administration Major and Entrepreneur Minor
+            Senior at UNC Chapel Hill | B.S. in Computer Science with a Data Science and Entrepreneur Minor
           </p>
         </div>
 
@@ -92,7 +92,7 @@ export default function Home() {
             </div>
             <div style={{ textAlign: 'left' }}>
               <p style={{ fontSize: '1.1rem', lineHeight: '1.85', color: '#333', margin: 0 }}>
-                Hey, I'm Jace! I am currently an incoming Senior at the University of North Carolina at Chapel Hill, where I'm pursuing an exciting journey toward a B.S in Computer Science
+                Hey, I'm Jace! I am currently a Senior at the University of North Carolina at Chapel Hill, where I'm pursuing an exciting journey toward a B.S in Computer Science
                 while minoring in Data Science and Entrepreneurship. My love for technology and innovation fuels my curiosity as I dive deep into the world of coding and consulting, constantly seeking new ways to challenge
                 myself and expand my skills. Outside the classroom, I am an enthusiastic sports fan, a film enjoyer, and a lover of music, all of which inspire my creativity and
                 drive. Whether it's through coding a new project, solving complex problems with modern business solutions, or jamming out to my favorite tunes, I am always looking
@@ -152,7 +152,7 @@ export default function Home() {
               <div style={styles.cardImageWrapper}>
                 <img src="/Protein_Report.png" alt="Protein Market Research Report" style={styles.cardImage} />
               </div>
-              <div style={styles.cardLabel}>Protein Craze Market Research Report</div>
+              <div style={styles.cardLabel}>Protein Market Report</div>
             </a>
 
           </div>
@@ -267,7 +267,7 @@ export default function Home() {
             <button
               className="connect-btn"
               style={{ backgroundColor: '#3D52A0' }}
-              onClick={() => window.open('https://docs.google.com/document/d/1DaaZMfiJVdWixJzwECqEK-dgVw8XZiBF3Zh8F3iGNoc/edit?usp=sharing', '_blank')}
+              onClick={() => window.open('/Jace_Resume.png', '_blank')}
             >
               <MdOutlineDescription size={22} /> View My Resume
             </button>
