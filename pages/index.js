@@ -92,8 +92,8 @@ export default function Home() {
             </div>
             <div style={{ textAlign: 'left' }}>
               <p style={{ fontSize: '1.1rem', lineHeight: '1.85', color: '#333', margin: 0 }}>
-                Hey, I'm Jace! I am currently a junior at the University of North Carolina at Chapel Hill, where I'm pursuing an exciting journey toward a Master's in Computer Science
-                while majoring in Business. My love for technology and innovation fuels my curiosity as I dive deep into the world of coding and consulting, constantly seeking new ways to challenge
+                Hey, I'm Jace! I am currently an incoming Senior at the University of North Carolina at Chapel Hill, where I'm pursuing an exciting journey toward a B.S in Computer Science
+                while minoring in Data Science and Entrepreneurship. My love for technology and innovation fuels my curiosity as I dive deep into the world of coding and consulting, constantly seeking new ways to challenge
                 myself and expand my skills. Outside the classroom, I am an enthusiastic sports fan, a film enjoyer, and a lover of music, all of which inspire my creativity and
                 drive. Whether it's through coding a new project, solving complex problems with modern business solutions, or jamming out to my favorite tunes, I am always looking
                 for ways to blend my diverse interests into something meaningful and impactful.
@@ -141,6 +141,18 @@ export default function Home() {
                 <img src="/PlymouthArgyleFinance.png" alt="Plymouth Argyles FC" style={styles.cardImage} />
               </div>
               <div style={styles.cardLabel}>Plymouth Argyles FC</div>
+            </a>
+
+            <a
+              href="https://www.canva.com/design/DAHBIUhqZMM/iFaytt2s30VIQXNsu8kCEA/view?utm_content=DAHBIUhqZMM&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4344a800f6"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-card"
+            >
+              <div style={styles.cardImageWrapper}>
+                <img src="/Protein_Report.png" alt="Protein Market Research Report" style={styles.cardImage} />
+              </div>
+              <div style={styles.cardLabel}>Protein Craze Market Research Report</div>
             </a>
 
           </div>
