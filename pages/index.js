@@ -5,7 +5,7 @@
       - Scroll Animation/effect DONE
     - Reformat the "About Me" Header DONE
     - IF you think of anything else put it in here
-    - Landing page? makes the website look longer and more professional
+    - Landing page? makes the website look longer and more professional Done, maybe wanna change the color but
 */
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
@@ -26,7 +26,7 @@ export default function Home() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Type the name once on mount
+  //This types my name out onto the landing page
   useEffect(() => {
     if (nameComplete) return;
     if (displayedName.length < fullName.length) {
@@ -38,7 +38,7 @@ export default function Home() {
     }
   }, [displayedName, nameComplete]);
 
-  // Cycle through roles after name finishes
+  //Then we cycle through each role and type those out, then check with isDeleting
   useEffect(() => {
     if (!nameComplete) return;
     const current = roles[roleIndex];
@@ -90,23 +90,26 @@ export default function Home() {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </Head>
 
-      {/* Sticky wrapper keeps header + mobile menu pinned together */}
+      {/* Sticky wrapper keeps header and mobile menu pinned together */}
       <div style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
         <header style={{
           backgroundColor: '#0a2e5c',
           color: 'white',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
           padding: '14px 40px',
           boxShadow: '0 2px 16px rgba(0, 0, 0, 0.3)',
         }}>
-          <img
-            src="/NewLogo.png"
-            alt="Jace Rea's Logo"
-            style={{ maxWidth: '150px' }}
-          />
+          {/* Left: logo — flex:1 so it matches the right side width */}
+          <div style={{ flex: 1 }}>
+            <img
+              src="/NewLogo.png"
+              alt="Jace Rea's Logo"
+              style={{ maxWidth: '150px', display: 'block' }}
+            />
+          </div>
 
+          {/* Center: always truly centered */}
           <div style={{ textAlign: 'center' }}>
             <h1 style={{ margin: 0, fontSize: '1.7rem', fontWeight: 700, letterSpacing: '0.4px' }}>
               Jace Rea
@@ -116,26 +119,26 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Desktop nav */}
-          <nav className="nav-desktop">
-            <a href="#about-me" className="nav-link">About Me</a>
-            <a href="#projects" className="nav-link">Projects</a>
-            <a href="#coding-proficiencies" className="nav-link">Coding Proficiencies</a>
-          </nav>
-
-          {/* Hamburger button — mobile only */}
-          <button
-            className="hamburger"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle navigation menu"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
+          {/* Right: nav + hamburger — flex:1 so it balances the left */}
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <nav className="nav-desktop">
+              <a href="#about-me" className="nav-link">About Me</a>
+              <a href="#projects" className="nav-link">Projects</a>
+              <a href="#coding-proficiencies" className="nav-link">Coding Proficiencies</a>
+            </nav>
+            <button
+              className="hamburger"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle navigation menu"
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
         </header>
 
-        {/* Mobile dropdown menu */}
+        {/*Actual menu */}
         <div className={`mobile-menu${menuOpen ? ' open' : ''}`}>
           <a href="#about-me" className="nav-link" onClick={() => setMenuOpen(false)}>About Me</a>
           <a href="#projects" className="nav-link" onClick={() => setMenuOpen(false)}>Projects</a>
@@ -143,7 +146,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Hero / Landing Section */}
+      {/* Landing Section portion */}
       <section style={{
         minHeight: '100vh',
         backgroundColor: '#0a2e5c',
