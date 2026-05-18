@@ -17,6 +17,46 @@ import { MdOutlineDescription } from 'react-icons/md';
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Typewriter state
+  const fullName = 'Jace Rea';
+  const roles = ['Computer Scientist.', 'Consultant.', 'Creator.', 'Innovator.'];
+  const [displayedName, setDisplayedName] = useState('');
+  const [nameComplete, setNameComplete] = useState(false);
+  const [displayedRole, setDisplayedRole] = useState('');
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  // Type the name once on mount
+  useEffect(() => {
+    if (nameComplete) return;
+    if (displayedName.length < fullName.length) {
+      const t = setTimeout(() => setDisplayedName(fullName.slice(0, displayedName.length + 1)), 100);
+      return () => clearTimeout(t);
+    } else {
+      const t = setTimeout(() => setNameComplete(true), 500);
+      return () => clearTimeout(t);
+    }
+  }, [displayedName, nameComplete]);
+
+  // Cycle through roles after name finishes
+  useEffect(() => {
+    if (!nameComplete) return;
+    const current = roles[roleIndex];
+    if (!isDeleting && displayedRole.length < current.length) {
+      const t = setTimeout(() => setDisplayedRole(current.slice(0, displayedRole.length + 1)), 60);
+      return () => clearTimeout(t);
+    } else if (!isDeleting && displayedRole.length === current.length) {
+      const t = setTimeout(() => setIsDeleting(true), 1800);
+      return () => clearTimeout(t);
+    } else if (isDeleting && displayedRole.length > 0) {
+      const t = setTimeout(() => setDisplayedRole(displayedRole.slice(0, -1)), 35);
+      return () => clearTimeout(t);
+    } else if (isDeleting && displayedRole.length === 0) {
+      setIsDeleting(false);
+      setRoleIndex((roleIndex + 1) % roles.length);
+    }
+  }, [displayedRole, isDeleting, roleIndex, nameComplete]);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -102,6 +142,34 @@ export default function Home() {
           <a href="#coding-proficiencies" className="nav-link" onClick={() => setMenuOpen(false)}>Coding Proficiencies</a>
         </div>
       </div>
+
+      {/* Hero / Landing Section */}
+      <section style={{
+        minHeight: '100vh',
+        backgroundColor: '#0a2e5c',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        padding: '40px 24px',
+        color: 'white',
+      }}>
+        <p style={{ margin: '0 0 12px', fontSize: '1.2rem', fontWeight: 400, opacity: 0.7, letterSpacing: '2px', textTransform: 'uppercase' }}>
+          Hi, I'm
+        </p>
+        <h1 style={{ fontSize: 'clamp(3rem, 9vw, 6.5rem)', fontWeight: 700, margin: '0 0 24px', letterSpacing: '-1px', lineHeight: 1.1 }}>
+          {displayedName}
+          {!nameComplete && <span className="cursor">|</span>}
+        </h1>
+        <div style={{ fontSize: 'clamp(1.2rem, 3vw, 2rem)', fontWeight: 500, color: 'rgba(255,255,255,0.7)', minHeight: '2rem', display: 'flex', alignItems: 'center', gap: '2px' }}>
+          <span>{displayedRole}</span>
+          {nameComplete && <span className="cursor">|</span>}
+        </div>
+        <a href="#about-me" className="hero-cta">
+          View My Work ↓
+        </a>
+      </section>
 
       <main className="page-main">
 
