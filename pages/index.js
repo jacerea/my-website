@@ -2,10 +2,11 @@
   List of things I would like to add:
     - Animations such as
       - Hover Animation DONE
-      - Scroll Animation/effect 
+      - Scroll Animation/effect DONE
     - Reformat the "About Me" Header DONE
     - IF you think of anything else put it in here
 */
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { FaJava, FaPython, FaJs, FaReact } from 'react-icons/fa';
 import { SiCplusplus, SiNextdotjs } from 'react-icons/si';
@@ -13,9 +14,26 @@ import { FaLinkedin, FaGithub } from 'react-icons/fa';
 import { MdOutlineDescription } from 'react-icons/md';
 
 export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div style={{
-      fontFamily: 'Segoe UI, Roboto, Helvetica Neue, sans-serif',
+      fontFamily: "'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
       fontSize: '1.1rem',
       backgroundColor: '#f5f7fa',
       color: '#1c1c1c',
@@ -26,72 +44,79 @@ export default function Home() {
       <Head>
         <title>Jace Rea | Portfolio</title>
         <link rel="icon" type="image/jpeg" href="/ReactIcon.jpg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </Head>
 
-      {/* Sticky header with integrated nav */}
-      <header style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 1000,
-        backgroundColor: '#0a2e5c',
-        color: 'white',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '14px 40px',
-        boxShadow: '0 2px 16px rgba(0, 0, 0, 0.3)',
-      }}>
-        <img
-          src="/NewLogo.png"
-          alt="Jace Rea's Logo"
-          style={{ maxWidth: '150px' }}
-        />
+      {/* Sticky wrapper keeps header + mobile menu pinned together */}
+      <div style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
+        <header style={{
+          backgroundColor: '#0a2e5c',
+          color: 'white',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '14px 40px',
+          boxShadow: '0 2px 16px rgba(0, 0, 0, 0.3)',
+        }}>
+          <img
+            src="/NewLogo.png"
+            alt="Jace Rea's Logo"
+            style={{ maxWidth: '150px' }}
+          />
 
-        <div style={{ textAlign: 'center' }}>
-          <h1 style={{ margin: 0, fontSize: '1.7rem', fontWeight: 700, letterSpacing: '0.4px' }}>
-            Jace Rea
-          </h1>
-          <p style={{ margin: '4px 0 0', fontSize: '0.88rem', fontStyle: 'italic', opacity: 0.8 }}>
-            Senior at UNC Chapel Hill | B.S. in Computer Science with a Data Science and Entrepreneur Minor
-          </p>
+          <div style={{ textAlign: 'center' }}>
+            <h1 style={{ margin: 0, fontSize: '1.7rem', fontWeight: 700, letterSpacing: '0.4px' }}>
+              Jace Rea
+            </h1>
+            <p style={{ margin: '4px 0 0', fontSize: '0.88rem', fontStyle: 'italic', opacity: 0.8 }}>
+              Senior at UNC Chapel Hill | B.S. in Computer Science with a Data Science and Entrepreneur Minor
+            </p>
+          </div>
+
+          {/* Desktop nav */}
+          <nav className="nav-desktop">
+            <a href="#about-me" className="nav-link">About Me</a>
+            <a href="#projects" className="nav-link">Projects</a>
+            <a href="#coding-proficiencies" className="nav-link">Coding Proficiencies</a>
+          </nav>
+
+          {/* Hamburger button — mobile only */}
+          <button
+            className="hamburger"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </header>
+
+        {/* Mobile dropdown menu */}
+        <div className={`mobile-menu${menuOpen ? ' open' : ''}`}>
+          <a href="#about-me" className="nav-link" onClick={() => setMenuOpen(false)}>About Me</a>
+          <a href="#projects" className="nav-link" onClick={() => setMenuOpen(false)}>Projects</a>
+          <a href="#coding-proficiencies" className="nav-link" onClick={() => setMenuOpen(false)}>Coding Proficiencies</a>
         </div>
+      </div>
 
-        <nav style={{ display: 'flex', gap: '28px', alignItems: 'center' }}>
-          <a href="#about-me" className="nav-link">About Me</a>
-          <a href="#projects" className="nav-link">Projects</a>
-          <a href="#coding-proficiencies" className="nav-link">Coding Proficiencies</a>
-        </nav>
-      </header>
-
-      <main style={{ padding: '64px 48px', textAlign: 'center' }}>
+      <main className="page-main">
 
         {/* About Me */}
-        <section id="about-me" style={{ marginBottom: '80px' }}>
-          <h2 style={styles.sectionHeading}>About Me</h2>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '52px',
-            maxWidth: '960px',
-            margin: '0 auto',
-          }}>
+        <section id="about-me" className="fade-in-section" style={{ marginBottom: '80px' }}>
+          <h2 className="section-heading">About Me</h2>
+          <div className="about-flex">
             <div style={{ flexShrink: 0 }}>
               <img
                 src="/New-Jace-Rea_Photo.png"
                 alt="Jace Rea"
-                style={{
-                  width: '220px',
-                  height: '220px',
-                  objectFit: 'cover',
-                  borderRadius: '50%',
-                  border: '4px solid #3D52A0',
-                  boxShadow: '0 8px 28px rgba(10, 46, 92, 0.25)',
-                  display: 'block',
-                }}
+                className="profile-photo"
               />
             </div>
-            <div style={{ textAlign: 'left' }}>
-              <p style={{ fontSize: '1.1rem', lineHeight: '1.85', color: '#333', margin: 0 }}>
+            <div>
+              <p className="about-text">
                 Hey, I'm Jace! I am currently a Senior at the University of North Carolina at Chapel Hill, where I'm pursuing an exciting journey toward a B.S in Computer Science
                 while minoring in Data Science and Entrepreneurship. My love for technology and innovation fuels my curiosity as I dive deep into the world of coding and consulting, constantly seeking new ways to challenge
                 myself and expand my skills. Outside the classroom, I am an enthusiastic sports fan, a film enjoyer, and a lover of music, all of which inspire my creativity and
@@ -103,8 +128,8 @@ export default function Home() {
         </section>
 
         {/* Consulting Portfolio */}
-        <section id="consulting-portfolio" style={{ marginBottom: '80px' }}>
-          <h2 style={styles.sectionHeading}>Consulting Portfolio</h2>
+        <section id="consulting-portfolio" className="fade-in-section" style={{ marginBottom: '80px' }}>
+          <h2 className="section-heading">Consulting Portfolio</h2>
           <div style={styles.cardGrid}>
 
             <a
@@ -159,8 +184,8 @@ export default function Home() {
         </section>
 
         {/* Coding Projects */}
-        <section id="projects" style={{ marginBottom: '80px' }}>
-          <h2 style={styles.sectionHeading}>Coding Projects</h2>
+        <section id="projects" className="fade-in-section" style={{ marginBottom: '80px' }}>
+          <h2 className="section-heading">Coding Projects</h2>
           <div style={styles.cardGrid}>
 
             <a
@@ -215,15 +240,9 @@ export default function Home() {
         </section>
 
         {/* Coding Proficiencies */}
-        <section id="coding-proficiencies" style={{ marginBottom: '80px' }}>
-          <h2 style={styles.sectionHeading}>Coding Proficiencies</h2>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 180px)',
-            gap: '24px',
-            justifyContent: 'center',
-            margin: '0 auto',
-          }}>
+        <section id="coding-proficiencies" className="fade-in-section" style={{ marginBottom: '80px' }}>
+          <h2 className="section-heading">Coding Proficiencies</h2>
+          <div className="skill-grid">
             <div className="skill-card">
               <FaJava style={styles.icon} />
               <p style={styles.logoText}>Java</p>
@@ -252,7 +271,7 @@ export default function Home() {
         </section>
 
         {/* Connect With Me */}
-        <section style={{ textAlign: 'center', marginBottom: '80px' }}>
+        <section className="fade-in-section" style={{ textAlign: 'center', marginBottom: '80px' }}>
           <h2 style={{ fontSize: '2.4rem', fontWeight: 700, color: '#0a2e5c', marginBottom: '32px' }}>
             Connect With Me!
           </h2>
@@ -296,15 +315,6 @@ export default function Home() {
 }
 
 const styles = {
-  sectionHeading: {
-    fontSize: '2.8rem',
-    fontWeight: 700,
-    color: '#0a2e5c',
-    marginBottom: '40px',
-    paddingBottom: '12px',
-    borderBottom: '3px solid #3D52A0',
-    display: 'inline-block',
-  },
   cardGrid: {
     display: 'flex',
     flexWrap: 'wrap',
