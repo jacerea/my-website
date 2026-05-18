@@ -5,6 +5,7 @@
       - Scroll Animation/effect DONE
     - Reformat the "About Me" Header DONE
     - IF you think of anything else put it in here
+    - Landing page? makes the website look longer and more professional
 */
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
@@ -153,7 +154,7 @@ export default function Home() {
               <div style={styles.cardImageWrapper}>
                 <img src="/mancitywomanspicture.png" alt="Manchester City Woman's FC" style={styles.cardImage} />
               </div>
-              <div style={styles.cardLabel}>Manchester City Woman's FC</div>
+              <div style={styles.cardLabel}>Man City Woman's FC</div>
             </a>
 
             <a
