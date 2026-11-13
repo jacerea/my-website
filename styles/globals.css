@@ -2,8 +2,17 @@
   box-sizing: border-box;
 }
 
+:root {
+  --navy: #0a2e5c;
+  --blue: #3D52A0;
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 html {
   scroll-behavior: smooth;
+  /* anchor jumps land below the sticky header instead of under it */
+  scroll-padding-top: 72px;
 }
 
 body {
@@ -11,7 +20,70 @@ body {
   padding: 0;
 }
 
-/* === LAYOUT === */
+::selection {
+  background: var(--blue);
+  color: white;
+}
+
+/* Scroll progress bar */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 1100;
+  background: linear-gradient(90deg, var(--blue), #ffffff);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Header (compacts + blurs after scrolling past the hero) */
+
+.header-wrap {
+  /* grows by exactly what the header loses, so the page never jumps */
+  transition: margin-bottom 0.35s var(--ease-out);
+}
+
+.header-wrap.is-scrolled {
+  margin-bottom: 12px;
+}
+
+.site-header {
+  background-color: #0a2e5c;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 14px 40px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+  transition:
+    padding 0.35s var(--ease-out),
+    background-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.header-wrap.is-scrolled .site-header {
+  padding: 8px 40px;
+  background-color: rgba(10, 46, 92, 0.88);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  backdrop-filter: saturate(160%) blur(12px);
+  box-shadow: 0 6px 24px rgba(10, 46, 92, 0.35);
+}
+
+.site-logo {
+  transform-origin: left center;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.header-wrap.is-scrolled .site-logo {
+  transform: scale(0.85);
+}
+
+/* Layout */
 
 .page-main {
   padding: 64px 48px;
@@ -20,19 +92,30 @@ body {
   margin: 0 auto;
 }
 
-/* === SECTION HEADINGS === */
+/* Section headings (underline is a pseudo-element so it can draw in) */
 
 .section-heading {
   font-size: 2.8rem;
   font-weight: 700;
   color: #0a2e5c;
   margin-bottom: 40px;
-  padding-bottom: 12px;
-  border-bottom: 3px solid #3D52A0;
+  padding-bottom: 15px;
   display: inline-block;
+  position: relative;
 }
 
-/* === ABOUT ME === */
+.section-heading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: #3D52A0;
+  transform-origin: center;
+}
+
+/*the about me */
 
 .about-flex {
   display: flex;
@@ -58,9 +141,15 @@ body {
   border: 4px solid #3D52A0;
   box-shadow: 0 8px 28px rgba(10, 46, 92, 0.25);
   display: block;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
 }
 
-/* === SKILL GRID === */
+.profile-photo:hover {
+  transform: scale(1.03);
+  box-shadow: 0 14px 40px rgba(10, 46, 92, 0.32);
+}
+
+/* skills grid */
 
 .skill-grid {
   display: grid;
@@ -70,7 +159,7 @@ body {
   margin: 0 auto;
 }
 
-/* === DESKTOP NAV === */
+/* desktop nav piortion */
 
 .nav-desktop {
   display: flex;
@@ -100,15 +189,17 @@ body {
   transition: width 0.22s ease;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link.is-active {
   opacity: 1;
 }
 
-.nav-link:hover::after {
+.nav-link:hover::after,
+.nav-link.is-active::after {
   width: 100%;
 }
 
-/* === HAMBURGER BUTTON (hidden on desktop) === */
+/* dropdown button (hidden on desktop) */
 
 .hamburger {
   display: none;
@@ -126,10 +217,24 @@ body {
   height: 2px;
   background: white;
   border-radius: 2px;
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition: transform 0.3s var(--ease-out), opacity 0.2s ease;
 }
 
-/* === MOBILE MENU (hidden by default) === */
+/* morph into an X (lines are 2px tall with a 5px gap → 7px offset) */
+.hamburger.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.is-open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile menu (hidden on desktop; animated on mobile below) */
 
 .mobile-menu {
   display: none;
@@ -140,17 +245,13 @@ body {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
-.mobile-menu.open {
-  display: flex;
-}
-
 .mobile-menu .nav-link {
   font-size: 1.05rem;
   padding: 10px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-/* === PROJECT / CONSULTING CARDS === */
+/* Project/Consulting cards */
 
 .project-card {
   display: block;
@@ -162,15 +263,97 @@ body {
   cursor: pointer;
   background: #ffffff;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.09);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
 }
 
-.project-card:hover {
-  transform: translateY(-7px);
-  box-shadow: 0 14px 36px rgba(61, 82, 160, 0.22);
+.card-media {
+  width: 100%;
+  padding-top: 66.66%;
+  position: relative;
+  overflow: hidden;
 }
 
-/* === SKILL CARDS === */
+.card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out);
+}
+
+/* navy gradient that fades in behind the "View →" pill */
+.card-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 46, 92, 0.78), rgba(10, 46, 92, 0) 65%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.card-cta {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  z-index: 1;
+  padding: 6px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: white;
+  white-space: nowrap;
+  border: 1.5px solid rgba(255, 255, 255, 0.75);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transform: translate(-50%, 14px);
+  transition: opacity 0.35s ease, transform 0.4s var(--ease-out);
+  pointer-events: none;
+}
+
+.card-label {
+  padding: 12px 10px;
+  background-color: #3D52A0;
+  color: white;
+  text-align: center;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.2px;
+}
+
+.project-card:hover,
+.project-card:focus-visible {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(10, 46, 92, 0.22);
+}
+
+.project-card:focus-visible {
+  outline: 3px solid #3D52A0;
+  outline-offset: 3px;
+}
+
+.project-card:hover .card-image,
+.project-card:focus-visible .card-image {
+  transform: scale(1.08);
+}
+
+.project-card:hover .card-media::after,
+.project-card:focus-visible .card-media::after {
+  opacity: 1;
+}
+
+.project-card:hover .card-cta,
+.project-card:focus-visible .card-cta {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* Skill cards */
 
 .skill-card {
   display: flex;
@@ -182,7 +365,7 @@ body {
   border-radius: 16px;
   background: #ffffff;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s ease, border-color 0.3s ease;
   cursor: default;
 }
 
@@ -192,9 +375,20 @@ body {
   border-color: #3D52A0;
 }
 
-/* === CONNECT BUTTONS === */
+.skill-card svg {
+  transition: transform 0.45s var(--ease-spring);
+}
+
+.skill-card:hover svg {
+  transform: scale(1.15) rotate(-6deg);
+}
+
+/* Connect with me buttons */
 
 .connect-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   gap: 9px;
@@ -209,7 +403,20 @@ body {
   cursor: pointer;
   letter-spacing: 0.3px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  transition: transform 0.25s var(--ease-out), box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+/* diagonal light sweep */
+.connect-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(110deg, transparent 20%, rgba(255, 255, 255, 0.35) 50%, transparent 80%);
+  transform: translateX(-150%) skewX(-20deg);
+  pointer-events: none;
 }
 
 .connect-btn:hover {
@@ -218,7 +425,120 @@ body {
   filter: brightness(1.08);
 }
 
-/* === HERO SECTION === */
+.connect-btn:hover::before {
+  transform: translateX(260%) skewX(-20deg);
+  transition: transform 0.75s ease;
+}
+
+.connect-btn:active {
+  transform: translateY(-1px);
+}
+
+.connect-btn:focus-visible {
+  outline: 3px solid #3D52A0;
+  outline-offset: 3px;
+}
+
+/* landing page section */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* keep hero content above the decorative background */
+.hero > :not(.hero-bg):not(.scroll-indicator) {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* soft glows made from radial gradients (cheaper than filter: blur) */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(61, 82, 160, 0.75) 0%, rgba(61, 82, 160, 0) 70%);
+  will-change: transform;
+}
+
+.hero-orb-1 {
+  width: 720px;
+  height: 720px;
+  top: -260px;
+  left: -220px;
+  animation: drift-1 26s ease-in-out infinite alternate;
+}
+
+.hero-orb-2 {
+  width: 640px;
+  height: 640px;
+  bottom: -280px;
+  right: -200px;
+  opacity: 0.85;
+  animation: drift-2 32s ease-in-out infinite alternate;
+}
+
+.hero-orb-3 {
+  width: 420px;
+  height: 420px;
+  top: 35%;
+  left: 55%;
+  opacity: 0.45;
+  animation: drift-3 22s ease-in-out infinite alternate;
+}
+
+/* faint dot grid that fades toward the edges */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.13) 1px, transparent 1px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 15%, transparent 72%);
+  mask-image: radial-gradient(ellipse at center, #000 15%, transparent 72%);
+}
+
+@keyframes drift-1 {
+  to { transform: translate3d(160px, 110px, 0) scale(1.12); }
+}
+
+@keyframes drift-2 {
+  to { transform: translate3d(-140px, -120px, 0) scale(1.08); }
+}
+
+@keyframes drift-3 {
+  to { transform: translate3d(-180px, 60px, 0) scale(0.9); }
+}
+
+/* Keyframes only define the start, so they animate back to each element's own
+   styles (e.g. the inline opacity on "Hi, I'm" is preserved). They use the
+   `translate` property so they don't clash with hover `transform`s. */
+@keyframes fade-up {
+  from { opacity: 0; translate: 0 18px; }
+}
+
+@keyframes reveal-up {
+  from { opacity: 0; translate: 0 28px; }
+}
+
+@keyframes line-grow {
+  from { transform: scaleX(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+}
+
+.hero-intro {
+  animation: fade-up 0.7s var(--ease-out) 0.1s both;
+}
 
 @keyframes blink {
   0%, 100% { opacity: 1; }
@@ -243,28 +563,122 @@ body {
   border-radius: 8px;
   text-decoration: none;
   letter-spacing: 0.5px;
-  transition: background 0.25s ease, border-color 0.25s ease;
+  /* hidden until the name finishes typing */
+  opacity: 0;
+  translate: 0 16px;
+  pointer-events: none;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s var(--ease-out),
+    opacity 0.8s var(--ease-out),
+    translate 0.8s var(--ease-out);
+}
+
+.hero-cta.is-shown {
+  opacity: 1;
+  translate: none;
+  pointer-events: auto;
 }
 
 .hero-cta:hover {
   background: rgba(255, 255, 255, 0.12);
   border-color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
 }
 
-/* === SCROLL FADE-IN === */
+.hero-cta:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
 
-.fade-in-section {
+.cta-arrow {
+  display: inline-block;
+  animation: arrow-bounce 2s ease-in-out infinite;
+}
+
+@keyframes arrow-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* Scroll-down indicator */
+
+.scroll-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: 32px;
+  z-index: 1;
+  transform: translateX(-50%);
+  transition: opacity 0.4s ease;
+}
+
+.scroll-indicator.is-hidden {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.65s ease, transform 0.65s ease;
+  pointer-events: none;
 }
 
-.fade-in-section.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+.scroll-mouse {
+  position: relative;
+  display: block;
+  width: 24px;
+  height: 38px;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  border-radius: 14px;
+  animation: fade-in 1s ease 2.4s both;
 }
 
-/* === TABLET / MOBILE (max-width: 768px) === */
+.scroll-wheel {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  width: 4px;
+  height: 8px;
+  margin-left: -2px;
+  border-radius: 2px;
+  background: white;
+  animation: scroll-wheel 1.8s ease-in-out infinite;
+}
+
+@keyframes scroll-wheel {
+  0% { opacity: 0; transform: translateY(-2px); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(12px); }
+}
+
+@media (max-height: 600px) {
+  .scroll-indicator {
+    display: none;
+  }
+}
+
+/* Scroll reveal: heading slides up, underline draws in, then items stagger */
+
+.fade-in-section:not(.is-visible) .section-heading,
+.fade-in-section:not(.is-visible) .reveal-item {
+  opacity: 0;
+}
+
+.fade-in-section.is-visible .section-heading {
+  animation: reveal-up 0.7s var(--ease-out) both;
+}
+
+.fade-in-section:not(.is-visible) .section-heading::after {
+  transform: scaleX(0);
+}
+
+.fade-in-section.is-visible .section-heading::after {
+  animation: line-grow 0.8s var(--ease-out) 0.3s both;
+}
+
+.fade-in-section.is-visible .reveal-item {
+  animation: reveal-up 0.7s var(--ease-out) both;
+  animation-delay: calc(200ms + var(--i, 0) * 90ms);
+}
+
+/* === MOBILE (max-width: 768px) === */
 
 @media (max-width: 768px) {
   .hamburger {
@@ -274,6 +688,52 @@ body {
   .nav-desktop {
     display: none;
   }
+
+  /* dropdown overlays the page and slides/fades in */
+  .mobile-menu {
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition:
+      opacity 0.3s ease,
+      transform 0.35s var(--ease-out),
+      visibility 0s linear 0.35s;
+  }
+
+  .mobile-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition:
+      opacity 0.3s ease,
+      transform 0.35s var(--ease-out),
+      visibility 0s;
+  }
+
+  .mobile-menu .nav-link {
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.3s ease, transform 0.35s var(--ease-out);
+  }
+
+  .mobile-menu.open .nav-link {
+    opacity: 0.82;
+    transform: none;
+  }
+
+  .mobile-menu.open .nav-link.is-active,
+  .mobile-menu.open .nav-link:hover {
+    opacity: 1;
+  }
+
+  .mobile-menu.open .nav-link:nth-child(1) { transition-delay: 0.06s; }
+  .mobile-menu.open .nav-link:nth-child(2) { transition-delay: 0.11s; }
+  .mobile-menu.open .nav-link:nth-child(3) { transition-delay: 0.16s; }
 
   .page-main {
     padding: 40px 20px;
@@ -308,9 +768,13 @@ body {
     width: calc(50% - 12px);
     flex: 0 0 calc(50% - 12px);
   }
+
+  .hero-orb-1 { width: 480px; height: 480px; }
+  .hero-orb-2 { width: 420px; height: 420px; }
+  .hero-orb-3 { width: 280px; height: 280px; }
 }
 
-/* === SMALL PHONES (max-width: 480px) === */
+/* THIS PART IS ONLY FOR VERY SMALL PHONES/anything incredibly small (max-width: 480px) === */
 
 @media (max-width: 480px) {
   .project-card {
@@ -321,5 +785,21 @@ body {
   .skill-grid {
     grid-template-columns: repeat(2, 1fr);
     max-width: 320px;
+  }
+}
+
+/* Respect users who prefer less motion: everything appears instantly */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
   }
 }

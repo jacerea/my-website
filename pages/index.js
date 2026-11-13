@@ -7,28 +7,58 @@
     - IF you think of anything else put it in here
     - Landing page? makes the website look longer and more professional Done, maybe wanna change the color but
 */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import { FaJava, FaPython, FaJs, FaReact } from 'react-icons/fa';
 import { SiCplusplus, SiNextdotjs } from 'react-icons/si';
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
 import { MdOutlineDescription } from 'react-icons/md';
 
+// Typewriter content (constant, so defined outside the component)
+const fullName = 'Jace Rea';
+const roles = ['Computer Scientist.', 'Consultant.', 'Creator.', 'Innovator.'];
+
+const NAV_LINKS = [
+  { id: 'about-me', label: 'About Me' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'coding-proficiencies', label: 'Coding Proficiencies' },
+];
+
+// Sections tracked for nav highlighting. Consulting has no nav link, so it highlights "About Me".
+const NAV_SECTION_MAP = {
+  'about-me': 'about-me',
+  'consulting-portfolio': 'about-me',
+  'projects': 'projects',
+  'coding-proficiencies': 'coding-proficiencies',
+};
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Scroll / animation state
+  const [introDone, setIntroDone] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [pastTop, setPastTop] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+  const heroRef = useRef(null);
+  const progressRef = useRef(null);
+
   // Typewriter state
-  const fullName = 'Jace Rea';
-  const roles = ['Computer Scientist.', 'Consultant.', 'Creator.', 'Innovator.'];
   const [displayedName, setDisplayedName] = useState('');
   const [nameComplete, setNameComplete] = useState(false);
   const [displayedRole, setDisplayedRole] = useState('');
   const [roleIndex, setRoleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // Let "Hi, I'm" animate in before the typewriter starts
+  useEffect(() => {
+    const t = setTimeout(() => setIntroDone(true), 700);
+    return () => clearTimeout(t);
+  }, []);
+
   //This types my name out onto the landing page
   useEffect(() => {
-    if (nameComplete) return;
+    if (!introDone || nameComplete) return;
     if (displayedName.length < fullName.length) {
       const t = setTimeout(() => setDisplayedName(fullName.slice(0, displayedName.length + 1)), 100);
       return () => clearTimeout(t);
@@ -36,7 +66,7 @@ export default function Home() {
       const t = setTimeout(() => setNameComplete(true), 500);
       return () => clearTimeout(t);
     }
-  }, [displayedName, nameComplete]);
+  }, [displayedName, nameComplete, introDone]);
 
   //Then we cycle through each role and type those out, then check with isDeleting
   useEffect(() => {
@@ -57,19 +87,71 @@ export default function Home() {
     }
   }, [displayedRole, isDeleting, roleIndex, nameComplete]);
 
+  // Scroll reveal: heading slides up, then each .reveal-item staggers in via its --i index
   useEffect(() => {
+    const sections = document.querySelectorAll('.fade-in-section');
+    sections.forEach(section => {
+      section.querySelectorAll('.reveal-item').forEach((el, i) => el.style.setProperty('--i', i));
+    });
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
           }
         });
       },
       { threshold: 0.12 }
     );
-    document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
+    sections.forEach(el => observer.observe(el));
     return () => observer.disconnect();
+  }, []);
+
+  // Active nav link: whichever section crosses the middle band of the viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) setActiveSection(NAV_SECTION_MAP[entry.target.id]);
+        });
+      },
+      { rootMargin: '-45% 0px -54% 0px' }
+    );
+    Object.keys(NAV_SECTION_MAP).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  // Scroll progress bar, compact header, and hiding the scroll indicator (rAF-throttled)
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const y = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${max > 0 ? Math.min(y / max, 1) : 0})`;
+      }
+      const hero = heroRef.current;
+      const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 0;
+      setScrolled(y > heroBottom - 80);
+      setPastTop(y > 40);
+      if (y + window.innerHeight * 0.45 < heroBottom) setActiveSection('');
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      cancelAnimationFrame(frame);
+    };
   }, []);
 
   return (
@@ -82,6 +164,8 @@ export default function Home() {
       margin: 0,
       padding: 0,
     }}>
+      <div ref={progressRef} className="scroll-progress" aria-hidden="true" />
+
       <Head>
         <title>Jace Rea | Portfolio</title>
         <link rel="icon" type="image/jpeg" href="/ReactIcon.jpg" />
@@ -91,20 +175,17 @@ export default function Home() {
       </Head>
 
       {/* Sticky wrapper keeps header and mobile menu pinned together */}
-      <div style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
-        <header style={{
-          backgroundColor: '#0a2e5c',
-          color: 'white',
-          display: 'flex',
-          alignItems: 'center',
-          padding: '14px 40px',
-          boxShadow: '0 2px 16px rgba(0, 0, 0, 0.3)',
-        }}>
+      <div
+        className={`header-wrap${scrolled ? ' is-scrolled' : ''}`}
+        style={{ position: 'sticky', top: 0, zIndex: 1000 }}
+      >
+        <header className="site-header">
           {/* Left: logo — flex:1 so it matches the right side width */}
           <div style={{ flex: 1 }}>
             <img
               src="/NewLogo.png"
               alt="Jace Rea's Logo"
+              className="site-logo"
               style={{ maxWidth: '150px', display: 'block' }}
             />
           </div>
@@ -119,17 +200,26 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Right: nav + hamburger — flex:1 so it balances the left */}
+          {/* Right: nav + dropdown — flex:1 so it balances the left */}
           <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
             <nav className="nav-desktop">
-              <a href="#about-me" className="nav-link">About Me</a>
-              <a href="#projects" className="nav-link">Projects</a>
-              <a href="#coding-proficiencies" className="nav-link">Coding Proficiencies</a>
+              {NAV_LINKS.map(link => (
+                <a
+                  key={link.id}
+                  href={`#${link.id}`}
+                  className={`nav-link${activeSection === link.id ? ' is-active' : ''}`}
+                  aria-current={activeSection === link.id ? 'true' : undefined}
+                >
+                  {link.label}
+                </a>
+              ))}
             </nav>
             <button
-              className="hamburger"
+              className={`hamburger${menuOpen ? ' is-open' : ''}`}
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle navigation menu"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
             >
               <span></span>
               <span></span>
@@ -139,15 +229,23 @@ export default function Home() {
         </header>
 
         {/*Actual menu */}
-        <div className={`mobile-menu${menuOpen ? ' open' : ''}`}>
-          <a href="#about-me" className="nav-link" onClick={() => setMenuOpen(false)}>About Me</a>
-          <a href="#projects" className="nav-link" onClick={() => setMenuOpen(false)}>Projects</a>
-          <a href="#coding-proficiencies" className="nav-link" onClick={() => setMenuOpen(false)}>Coding Proficiencies</a>
+        <div id="mobile-menu" className={`mobile-menu${menuOpen ? ' open' : ''}`}>
+          {NAV_LINKS.map(link => (
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              className={`nav-link${activeSection === link.id ? ' is-active' : ''}`}
+              onClick={() => setMenuOpen(false)}
+              tabIndex={menuOpen ? undefined : -1}
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
       </div>
 
       {/* Landing Section portion */}
-      <section style={{
+      <section ref={heroRef} className="hero" style={{
         minHeight: '100vh',
         backgroundColor: '#0a2e5c',
         display: 'flex',
@@ -158,8 +256,16 @@ export default function Home() {
         padding: '40px 24px',
         color: 'white',
       }}>
-        <p style={{ margin: '0 0 12px', fontSize: '1.2rem', fontWeight: 400, opacity: 0.7, letterSpacing: '2px', textTransform: 'uppercase' }}>
-          Hi, I'm
+        {/* Decorative animated background */}
+        <div className="hero-bg" aria-hidden="true">
+          <span className="hero-orb hero-orb-1" />
+          <span className="hero-orb hero-orb-2" />
+          <span className="hero-orb hero-orb-3" />
+          <span className="hero-grid" />
+        </div>
+
+        <p className="hero-intro" style={{ margin: '0 0 12px', fontSize: '1.2rem', fontWeight: 400, opacity: 0.7, letterSpacing: '2px', textTransform: 'uppercase' }}>
+          Hi, I&apos;m
         </p>
         <h1 style={{ fontSize: 'clamp(3rem, 9vw, 6.5rem)', fontWeight: 700, margin: '0 0 24px', letterSpacing: '-1px', lineHeight: 1.1 }}>
           {displayedName}
@@ -169,8 +275,17 @@ export default function Home() {
           <span>{displayedRole}</span>
           {nameComplete && <span className="cursor">|</span>}
         </div>
-        <a href="#about-me" className="hero-cta">
-          View My Work ↓
+        <a href="#about-me" className={`hero-cta${nameComplete ? ' is-shown' : ''}`}>
+          View My Work <span className="cta-arrow" aria-hidden="true">↓</span>
+        </a>
+
+        <a
+          href="#about-me"
+          className={`scroll-indicator${pastTop ? ' is-hidden' : ''}`}
+          aria-hidden="true"
+          tabIndex={-1}
+        >
+          <span className="scroll-mouse"><span className="scroll-wheel" /></span>
         </a>
       </section>
 
@@ -180,7 +295,7 @@ export default function Home() {
         <section id="about-me" className="fade-in-section" style={{ marginBottom: '80px' }}>
           <h2 className="section-heading">About Me</h2>
           <div className="about-flex">
-            <div style={{ flexShrink: 0 }}>
+            <div className="reveal-item" style={{ flexShrink: 0 }}>
               <img
                 src="/New-Jace-Rea_Photo.png"
                 alt="Jace Rea"
@@ -188,11 +303,11 @@ export default function Home() {
               />
             </div>
             <div>
-              <p className="about-text">
-                Hey, I'm Jace! I am currently a Senior at the University of North Carolina at Chapel Hill, where I'm pursuing an exciting journey toward a B.S in Computer Science
+              <p className="about-text reveal-item">
+                Hey, I&apos;m Jace! I am currently a Senior at the University of North Carolina at Chapel Hill, where I&apos;m pursuing an exciting journey toward a B.S in Computer Science
                 while minoring in Data Science and Entrepreneurship. My love for technology and innovation fuels my curiosity as I dive deep into the world of coding and consulting, constantly seeking new ways to challenge
                 myself and expand my skills. Outside the classroom, I am an enthusiastic sports fan, a film enjoyer, and a lover of music, all of which inspire my creativity and
-                drive. Whether it's through coding a new project, solving complex problems with modern business solutions, or jamming out to my favorite tunes, I am always looking
+                drive. Whether it&apos;s through coding a new project, solving complex problems with modern business solutions, or jamming out to my favorite tunes, I am always looking
                 for ways to blend my diverse interests into something meaningful and impactful.
               </p>
             </div>
@@ -208,48 +323,52 @@ export default function Home() {
               href="https://www.canva.com/design/DAGuEZhHSpQ/Fm5NaJNWd1cQgm_oJJc0FQ/edit?utm_content=DAGuEZhHSpQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
               target="_blank"
               rel="noopener noreferrer"
-              className="project-card"
+              className="project-card reveal-item"
             >
-              <div style={styles.cardImageWrapper}>
-                <img src="/SalfordCity.png" alt="Salford City FC" style={styles.cardImage} />
+              <div className="card-media">
+                <img src="/SalfordCity.png" alt="Salford City FC" className="card-image" />
+                <span className="card-cta" aria-hidden="true">View →</span>
               </div>
-              <div style={styles.cardLabel}>Salford City FC</div>
+              <div className="card-label">Salford City FC</div>
             </a>
 
             <a
               href="https://www.canva.com/design/DAGujkGeUlQ/yd62Drb3mQXz7jHOojiVUQ/edit?utm_content=DAGujkGeUlQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
               target="_blank"
               rel="noopener noreferrer"
-              className="project-card"
+              className="project-card reveal-item"
             >
-              <div style={styles.cardImageWrapper}>
-                <img src="/mancitywomanspicture.png" alt="Manchester City Woman's FC" style={styles.cardImage} />
+              <div className="card-media">
+                <img src="/mancitywomanspicture.png" alt="Manchester City Woman's FC" className="card-image" />
+                <span className="card-cta" aria-hidden="true">View →</span>
               </div>
-              <div style={styles.cardLabel}>Man City Woman's FC</div>
+              <div className="card-label">Man City Woman&apos;s FC</div>
             </a>
 
             <a
               href="https://www.canva.com/design/DAGtc3-okQQ/sKtU_lXynAYtIrVFmiF-Bw/edit?utm_content=DAGtc3-okQQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
               target="_blank"
               rel="noopener noreferrer"
-              className="project-card"
+              className="project-card reveal-item"
             >
-              <div style={styles.cardImageWrapper}>
-                <img src="/PlymouthArgyleFinance.png" alt="Plymouth Argyles FC" style={styles.cardImage} />
+              <div className="card-media">
+                <img src="/PlymouthArgyleFinance.png" alt="Plymouth Argyles FC" className="card-image" />
+                <span className="card-cta" aria-hidden="true">View →</span>
               </div>
-              <div style={styles.cardLabel}>Plymouth Argyles FC</div>
+              <div className="card-label">Plymouth Argyles FC</div>
             </a>
 
             <a
               href="https://www.canva.com/design/DAHBIUhqZMM/iFaytt2s30VIQXNsu8kCEA/view?utm_content=DAHBIUhqZMM&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h4344a800f6"
               target="_blank"
               rel="noopener noreferrer"
-              className="project-card"
+              className="project-card reveal-item"
             >
-              <div style={styles.cardImageWrapper}>
-                <img src="/Protein_Report.png" alt="Protein Market Research Report" style={styles.cardImage} />
+              <div className="card-media">
+                <img src="/Protein_Report.png" alt="Protein Market Research Report" className="card-image" />
+                <span className="card-cta" aria-hidden="true">View →</span>
               </div>
-              <div style={styles.cardLabel}>Protein Market Report</div>
+              <div className="card-label">Protein Market Report</div>
             </a>
 
           </div>
@@ -264,48 +383,52 @@ export default function Home() {
               href="https://github.com/jacerea/tetris-dog-game"
               target="_blank"
               rel="noopener noreferrer"
-              className="project-card"
+              className="project-card reveal-item"
             >
-              <div style={styles.cardImageWrapper}>
-                <img src="/tetris-dog-thumbnail.png" alt="Tetris-Style Dog Game" style={styles.cardImage} />
+              <div className="card-media">
+                <img src="/tetris-dog-thumbnail.png" alt="Tetris-Style Dog Game" className="card-image" />
+                <span className="card-cta" aria-hidden="true">View →</span>
               </div>
-              <div style={styles.cardLabel}>Tetris-Style Dog Game</div>
+              <div className="card-label">Tetris-Style Dog Game</div>
             </a>
 
             <a
               href="https://github.com/jacerea/unc-sport-chatbot"
               target="_blank"
               rel="noopener noreferrer"
-              className="project-card"
+              className="project-card reveal-item"
             >
-              <div style={styles.cardImageWrapper}>
-                <img src="/unc-chatbot-thumbnail.png" alt="UNC Sports Chatbot" style={styles.cardImage} />
+              <div className="card-media">
+                <img src="/unc-chatbot-thumbnail.png" alt="UNC Sports Chatbot" className="card-image" />
+                <span className="card-cta" aria-hidden="true">View →</span>
               </div>
-              <div style={styles.cardLabel}>UNC Sports Chatbot</div>
+              <div className="card-label">UNC Sports Chatbot</div>
             </a>
 
             <a
               href="https://github.com/jacerea/ancient-philosophy"
               target="_blank"
               rel="noopener noreferrer"
-              className="project-card"
+              className="project-card reveal-item"
             >
-              <div style={styles.cardImageWrapper}>
-                <img src="/ancient-philosophy-thumbnail.png" alt="Ancient Philosophy" style={styles.cardImage} />
+              <div className="card-media">
+                <img src="/ancient-philosophy-thumbnail.png" alt="Ancient Philosophy" className="card-image" />
+                <span className="card-cta" aria-hidden="true">View →</span>
               </div>
-              <div style={styles.cardLabel}>Ancient Philosophy</div>
+              <div className="card-label">Ancient Philosophy</div>
             </a>
 
             <a
               href="https://github.com/jacerea/my-website"
               target="_blank"
               rel="noopener noreferrer"
-              className="project-card"
+              className="project-card reveal-item"
             >
-              <div style={styles.cardImageWrapper}>
-                <img src="/personal-website-thumbnail.png" alt="Personal Website" style={styles.cardImage} />
+              <div className="card-media">
+                <img src="/personal-website-thumbnail.png" alt="Personal Website" className="card-image" />
+                <span className="card-cta" aria-hidden="true">View →</span>
               </div>
-              <div style={styles.cardLabel}>Personal Website</div>
+              <div className="card-label">Personal Website</div>
             </a>
 
           </div>
@@ -315,27 +438,27 @@ export default function Home() {
         <section id="coding-proficiencies" className="fade-in-section" style={{ marginBottom: '80px' }}>
           <h2 className="section-heading">Coding Proficiencies</h2>
           <div className="skill-grid">
-            <div className="skill-card">
+            <div className="skill-card reveal-item">
               <FaJava style={styles.icon} />
               <p style={styles.logoText}>Java</p>
             </div>
-            <div className="skill-card">
+            <div className="skill-card reveal-item">
               <FaPython style={styles.icon} />
               <p style={styles.logoText}>Python</p>
             </div>
-            <div className="skill-card">
+            <div className="skill-card reveal-item">
               <FaJs style={styles.icon} />
               <p style={styles.logoText}>JavaScript</p>
             </div>
-            <div className="skill-card">
+            <div className="skill-card reveal-item">
               <FaReact style={styles.icon} />
               <p style={styles.logoText}>React</p>
             </div>
-            <div className="skill-card">
+            <div className="skill-card reveal-item">
               <SiCplusplus style={styles.icon} />
               <p style={styles.logoText}>C++</p>
             </div>
-            <div className="skill-card">
+            <div className="skill-card reveal-item">
               <SiNextdotjs style={styles.icon} />
               <p style={styles.logoText}>Next.js</p>
             </div>
@@ -344,26 +467,26 @@ export default function Home() {
 
         {/* Connect With Me */}
         <section className="fade-in-section" style={{ textAlign: 'center', marginBottom: '80px' }}>
-          <h2 style={{ fontSize: '2.4rem', fontWeight: 700, color: '#0a2e5c', marginBottom: '32px' }}>
+          <h2 className="reveal-item" style={{ fontSize: '2.4rem', fontWeight: 700, color: '#0a2e5c', marginBottom: '32px' }}>
             Connect With Me!
           </h2>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
             <button
-              className="connect-btn"
+              className="connect-btn reveal-item"
               style={{ backgroundColor: '#0077B5' }}
               onClick={() => window.open('https://www.linkedin.com/in/jace-rea04/', '_blank')}
             >
               <FaLinkedin size={22} /> LinkedIn
             </button>
             <button
-              className="connect-btn"
+              className="connect-btn reveal-item"
               style={{ backgroundColor: '#3D52A0' }}
               onClick={() => window.open('/Jace_Resume.png', '_blank')}
             >
               <MdOutlineDescription size={22} /> View My Resume
             </button>
             <button
-              className="connect-btn"
+              className="connect-btn reveal-item"
               style={{ backgroundColor: '#333' }}
               onClick={() => window.open('https://github.com/jacerea', '_blank')}
             >
@@ -392,30 +515,6 @@ const styles = {
     flexWrap: 'wrap',
     gap: '24px',
     justifyContent: 'center',
-  },
-  cardImageWrapper: {
-    width: '100%',
-    paddingTop: '66.66%',
-    position: 'relative',
-    overflow: 'hidden',
-  },
-  cardImage: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    transition: 'transform 0.3s ease',
-  },
-  cardLabel: {
-    padding: '12px 10px',
-    backgroundColor: '#3D52A0',
-    color: 'white',
-    textAlign: 'center',
-    fontWeight: 600,
-    fontSize: '15px',
-    letterSpacing: '0.2px',
   },
   icon: {
     fontSize: '2.4rem',
